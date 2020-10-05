@@ -5,8 +5,8 @@ import React from 'react';
 function Componentthree() {
   return (
     <div className="">
-    
-        <h3>Component One</h3>
+
+        <h3>Component Three</h3>
         <hr/>
         <img 
         src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
