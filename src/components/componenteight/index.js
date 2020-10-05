@@ -2,14 +2,14 @@ import React from 'react';
 
 
 
-function Componentseven() {
+function Componenteight() {
   return (
     <div className="">
     
-        <h3>Component Seven</h3>
+        <h3>Component Eight</h3>
         <hr/>
         <img 
-        src="https://www.eschoolnews.com/files/2020/01/coding-science.jpg"
+        src="https://meltwater.org/wp-content/uploads/2015/05/mestlogofull_landscape_blue-1024x287-1.png"
         alt="new"
         className="img-responsive center-block"
         />
@@ -50,4 +50,4 @@ function Componentseven() {
   );
 }
 
-export default Componentseven;
+export default Componenteight;
