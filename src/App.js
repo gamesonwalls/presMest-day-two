@@ -10,6 +10,8 @@ import Componentfive from './components/componentfive';
 import Componentsix from './components/componentsix';
 import Componentseven from './components/componentseven';
 import Componenteight from './components/componenteight';
+import Componentnine from './components/componentnine';
+import Componentten from './components/componentten';
 
 
 
@@ -23,7 +25,10 @@ function App() {
         <Componentfive/> 
         <Componentsix/> 
         <Componentseven/> 
-        <Componenteight/> 
+        <Componenteight/>
+        <Componentnine/>
+        <Componentten/>
+         
              
     </div>
   );
