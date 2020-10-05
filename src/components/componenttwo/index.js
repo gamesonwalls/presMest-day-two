@@ -6,9 +6,9 @@ function Componenttwo() {
   return (
     <div className="">
         <h3>Component Two</h3>
-        <hr/>
+       
         <p>Ready for react JS now</p>
-      
+        <hr/>
     </div>
   );
 }
