@@ -2,14 +2,14 @@ import React from 'react';
 
 
 
-function Componentthree() {
+function Componentfour() {
   return (
     <div className="">
     
-        <h3>Component One</h3>
+        <h3>Component Four</h3>
         <hr/>
         <img 
-        src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
+        src="https://firstchurchcongregational.org/wp-content/uploads/2016/11/dfsf.jpg"
         alt="new"
         className="img-responsive center-block"
         />
@@ -50,4 +50,4 @@ function Componentthree() {
   );
 }
 
-export default Componentthree;
+export default Componentfour;
