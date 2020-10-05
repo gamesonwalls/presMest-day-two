@@ -2,13 +2,13 @@ import React from 'react';
 
 
 
-function Componentone() {
+function Componenttwo() {
   return (
     <div className="">
-        <h3>Component One</h3>
+        <h3>Component Two</h3>
         <hr/>
         <img 
-        src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
+        src="https://images6.fanpop.com/image/photos/39500000/dfsf-maria5151-39540546-299-168.jpg"
         alt="new"
         className="img-responsive center-block"
         />
@@ -49,4 +49,4 @@ function Componentone() {
   );
 }
 
-export default Componentone;
+export default Componenttwo;
