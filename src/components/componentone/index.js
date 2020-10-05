@@ -2,7 +2,7 @@ import React from 'react';
 
 
 
-function Login() {
+function Componentone() {
   return (
     <div className="Login">
         <p>Login Page</p>
@@ -11,4 +11,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Componentone;
