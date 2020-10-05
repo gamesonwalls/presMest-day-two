@@ -8,6 +8,7 @@ import Componentthree from './components/componentthree';
 import Componentfour from './components/componentfour';
 import Componentfive from './components/componentfive';
 import Componentsix from './components/componentsix';
+import Componentseven from './components/componentseven';
 
 
 
@@ -19,7 +20,9 @@ function App() {
         <Componentthree/>
         <Componentfour/> 
         <Componentfive/> 
-        <Componentsix/>      
+        <Componentsix/> 
+        <Componentseven/> 
+             
     </div>
   );
 }
