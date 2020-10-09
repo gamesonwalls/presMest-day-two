@@ -2,11 +2,11 @@ import React,{useState,useEffect} from 'react';
 
 import Login from '../Login'
 import axios from 'axios'
-import { Modal, Button } from 'antd';
+import { Modal } from 'antd';
 
-import loaderGif from '../../loader.gif'
 
-import $ from "jquery";
+let storageArray=[]
+
 function Home() {
 
   const [location,setLocation]=useState(null)
@@ -19,9 +19,13 @@ function Home() {
   const [weatherIcon,setWeatherIcon]=useState(null)
   const [date,setDate]=useState(null);
 
+  const [searchResults,setsearchResults]=useState([])
+
   const [visible,setVisible]=useState(false);
+  const [visible2,setVisible2]=useState(false);
 
   // const [userSearch,setuserSearch]=useState('Search with a City or Country')
+ 
 
   useEffect(() => {
 
@@ -48,10 +52,7 @@ function Home() {
         setLocation(`${response.data['location'].name} , ${response.data['location'].country}`);
         setDate(`${response.data['location'].localtime}`)
         setisLoading(false)
-        // document.getElementById('weatherIcon').innerHTML =`<img alt="" src=${response.data['current'].weather_icons[0]} />`;
-        // document.getElementById('temperature').innerHTML=`${response.data['current'].temperature}°C`;
-        // document.getElementById('city_country').innerHTML=`<p>${response.data['location'].name} , ${response.data['location'].country}</p>`;
-        // document.getElementById('dates').innerHTML=`<p>${response.data['location'].localtime}</p>`;
+
         
       })
       .catch(function (error) {
@@ -60,6 +61,71 @@ function Home() {
   }
 
 
+
+  function apiWeatherSearch(queryWord){
+
+    setisLoading(true)
+    const apiKey='ec7d0fcad25a0ade0cc1fb7d61dd869b';
+    
+    axios.get(`http://api.weatherstack.com/current?access_key=${apiKey}&query=${queryWord}`, {
+        
+      })
+      .then(function (response) {
+        console.log("Weather Page",response.data);
+        setWeatherIcon(`${response.data['current'].weather_icons[0]}`)
+        setTemperatur(`${response.data['current'].temperature}°C`);
+        setLocation(`${response.data['location'].name} , ${response.data['location'].country}`);
+        setDate(`${response.data['location'].localtime}`)
+        setisLoading(false)
+
+        storageArray.push({
+          weatherIcon:`${response.data['current'].weather_icons[0]}`,
+          temperature:`${response.data['current'].temperature}°C`,
+          location:`${response.data['location'].name} , ${response.data['location'].country}`,
+          date:`${response.data['location'].localtime}`
+        })
+
+       
+        
+        // if login is true fire function
+        if(isLogin===true){
+         // alert('you have logged in')
+          //localStorage.setItem('userSearchResults','')
+          localStorage.setItem('userSearchResults',JSON.stringify(storageArray))
+          searchUserResult()
+         // 
+
+        }else{
+          localStorage.setItem('userSearchResults','')
+          
+        }
+
+        
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }
+
+function searchUserResult(){
+  let userSearchVar= JSON.parse(localStorage.getItem('userSearchResults'))
+
+  let OnlyFive= userSearchVar.slice(Math.max(userSearchVar.length - 5, 0))
+   console.log("arr",OnlyFive)
+
+
+  let getData= OnlyFive.map((r,index)=>{
+     return <tr key={index}>
+            <th scope="row">{index}</th>
+            <td>{r.location}</td>
+            <td>{r.date}</td>
+            <td><img src={r.weatherIcon} alt="weaIcon"/></td>
+            <td>{r.temperature}</td>
+          </tr>
+   })
+
+   setsearchResults(getData)
+}
   function apiCountries(){
      
    // let that=this;
@@ -86,6 +152,7 @@ function Home() {
   function handleOk_Cancel() {
    
     setVisible(false)
+    setVisible2(false)
   };
 
   
@@ -93,11 +160,18 @@ function Home() {
     setVisible(true)
   };
 
+  function showModal2() {
+    setVisible2(true)
+  };
+
 function searchWeather(e){
     e.preventDefault()
    let searchWord= document.getElementById('search').value;
+   //Controlling initial user search
+ 
 
-   apiWeather(searchWord)
+   //calling api with user search
+   apiWeatherSearch(searchWord)
 }
 
   return (
@@ -147,6 +221,7 @@ function searchWeather(e){
             <li  className="dropdown">
               <a href="#"  className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span  className="caret"></span></a>
               <ul  className="dropdown-menu">
+                <li><a onClick={showModal2}>My Search</a></li>
                 <li><a href="#">Logout</a></li>
               
                 
@@ -160,12 +235,7 @@ function searchWeather(e){
     
 <div className=" " >
 
-<div style={{float:'right',marginRight: 20}} >
-    <span style={{color:'white'}}>Countries </span>
-    <select style={{width:142}}  id="countries" onChange={seachWeatherCountry} >
-        {countries}   
-      </select>
-    </div>
+
         {isLoading===true && 
           <div className="col-md-12">
                <img src="https://cdn.dribbble.com/users/17619/screenshots/2666659/loader.gif" style={{width:80,marginTop:80}} className="img-responsive center-block" alt="loading"/>
@@ -231,6 +301,35 @@ function searchWeather(e){
                 <Login isLogin={isLogin} setVisible={setVisible} setisLogin={setisLogin} userName={userName} setuserName={setuserName}/>
 
               </Modal>
+
+
+              <Modal
+                title="My Search"
+                visible={visible2}
+                onOk={handleOk_Cancel}
+                onCancel={handleOk_Cancel}
+                  footer={[
+              <div></div>
+              ]}
+              >
+
+                
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Weather Icon</th>
+                    <th scope="col">Temperature</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {searchResults}
+                  
+                </tbody>
+              </table>
+            </Modal>
       
     </div>
   );
