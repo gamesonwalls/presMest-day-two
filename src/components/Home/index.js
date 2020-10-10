@@ -52,6 +52,7 @@ function Home() {
         setLocation(`${response.data['location'].name} , ${response.data['location'].country}`);
         setDate(`${response.data['location'].localtime}`)
         setisLoading(false)
+        localStorage.clear('userSearchResults');
 
         
       })
@@ -78,27 +79,28 @@ function Home() {
         setDate(`${response.data['location'].localtime}`)
         setisLoading(false)
 
-        storageArray.push({
-          weatherIcon:`${response.data['current'].weather_icons[0]}`,
-          temperature:`${response.data['current'].temperature}°C`,
-          location:`${response.data['location'].name} , ${response.data['location'].country}`,
-          date:`${response.data['location'].localtime}`
-        })
+       
 
        
         
-        // if login is true fire function
+
         if(isLogin===true){
-         // alert('you have logged in')
-          //localStorage.setItem('userSearchResults','')
+       
+          storageArray.push({
+            weatherIcon:`${response.data['current'].weather_icons[0]}`,
+            temperature:`${response.data['current'].temperature}°C`,
+            location:`${response.data['location'].name} , ${response.data['location'].country}`,
+            date:`${response.data['location'].localtime}`
+          })
+
           localStorage.setItem('userSearchResults',JSON.stringify(storageArray))
           searchUserResult()
          // 
 
-        }else{
-          localStorage.setItem('userSearchResults','')
-          
         }
+
+        let userSearchVar= JSON.parse(localStorage.getItem('userSearchResults'))
+        console.log("userSearchVar",userSearchVar)
 
         
       })
@@ -108,23 +110,29 @@ function Home() {
   }
 
 function searchUserResult(){
-  let userSearchVar= JSON.parse(localStorage.getItem('userSearchResults'))
 
-  let OnlyFive= userSearchVar.slice(Math.max(userSearchVar.length - 5, 0))
-   console.log("arr",OnlyFive)
+ 
 
+  if(isLogin===true){
+    let userSearchVar= JSON.parse(localStorage.getItem('userSearchResults'))
 
-  let getData= OnlyFive.map((r,index)=>{
-     return <tr key={index}>
-            <th scope="row">{index}</th>
-            <td>{r.location}</td>
-            <td>{r.date}</td>
-            <td><img src={r.weatherIcon} alt="weaIcon"/></td>
-            <td>{r.temperature}</td>
-          </tr>
-   })
-
-   setsearchResults(getData)
+    let OnlyFive= userSearchVar.slice(Math.max(userSearchVar.length - 5, 0))
+    // console.log("arr",OnlyFive)
+  
+  
+    let getData= OnlyFive.map((r,index)=>{
+       return <tr key={index}>
+              <th scope="row">{index}</th>
+              <td>{r.location}</td>
+              <td>{r.date}</td>
+              <td><img src={r.weatherIcon} alt="weaIcon"/></td>
+              <td>{r.temperature}</td>
+            </tr>
+     })
+  
+     setsearchResults(getData)
+  }
+ 
 }
   function apiCountries(){
      
@@ -144,10 +152,10 @@ function searchUserResult(){
           })
     }
 
-    function seachWeatherCountry(e){
-      let search=e.target.value;
-      apiWeather(search)
-    }
+    // function seachWeatherCountry(e){
+    //   let search=e.target.value;
+    //   apiWeather(search)
+    // }
 
   function handleOk_Cancel() {
    
@@ -296,11 +304,11 @@ function searchWeather(e){
                 onCancel={handleOk_Cancel}
                   footer={[
               <div></div>
-            ]}
-              >
-                <Login isLogin={isLogin} setVisible={setVisible} setisLogin={setisLogin} userName={userName} setuserName={setuserName}/>
+            ]}>
+              
+              <Login setVisible={setVisible} setisLogin={setisLogin} setuserName={setuserName}/>
 
-              </Modal>
+            </Modal>
 
 
               <Modal
@@ -314,8 +322,8 @@ function searchWeather(e){
               >
 
                 
-              <table class="table">
-                <thead class="thead-dark">
+              <table className="table">
+                <thead className="thead-dark">
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Location</th>

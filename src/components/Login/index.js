@@ -23,7 +23,7 @@ function Login(props) {
       if(strinDt===true){
                 props.setisLogin(true)
                 props.setuserName(username)
-                $.noConflict();
+                //$.noConflict();
                 
                 props.setVisible(false)  
       }else{
@@ -54,7 +54,7 @@ function Login(props) {
                   <form style={{padding: 21}} onSubmit={userLogin}>
                     <div className="">
                     <div id="checker" style={{display:'none'}} >
-                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                           <span aria-hidden="true">Username or password must be more than 8 characters</span>
                         </button>
                     </div>
