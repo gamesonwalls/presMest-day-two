@@ -35,7 +35,8 @@ function Login(props) {
 
   function validateUserCredential(username,password){
 
-          let checker= user.some((arrVal)=> { 
+    let users= JSON.parse(localStorage.getItem('users'));
+          let checker= users.some((arrVal)=> { 
               return username === arrVal.username && password ===arrVal.password; 
           });
           return checker;
@@ -53,9 +54,9 @@ function Login(props) {
             <div className="card-body">
                   <form style={{padding: 21}} onSubmit={userLogin}>
                     <div className="">
-                    <div id="checker" style={{display:'none'}} >
+                    <div id="checker" className="col-md-12" style={{display:'none'}} >
                           <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">Username or password must be more than 8 characters</span>
+                          <span aria-hidden="true">Username or password mismatch</span>
                         </button>
                     </div>
                     <label>Username</label>

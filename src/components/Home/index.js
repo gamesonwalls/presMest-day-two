@@ -3,8 +3,9 @@ import React,{useState,useEffect} from 'react';
 import Login from '../Login'
 import axios from 'axios'
 import { Modal } from 'antd';
+import user from '../user.json'
 
-
+// var fs =require('fs');
 let storageArray=[]
 
 function Home() {
@@ -23,6 +24,7 @@ function Home() {
 
   const [visible,setVisible]=useState(false);
   const [visible2,setVisible2]=useState(false);
+  const [visible3,setVisible3]=useState(false);
 
   // const [userSearch,setuserSearch]=useState('Search with a City or Country')
  
@@ -173,6 +175,7 @@ function searchUserResult(){
    
     setVisible(false)
     setVisible2(false)
+    setVisible3(false)
   };
 
   
@@ -182,6 +185,9 @@ function searchUserResult(){
 
   function showModal2() {
     setVisible2(true)
+  };
+  function showModal3() {
+    setVisible3(true)
   };
 
 function searchWeather(e){
@@ -194,6 +200,34 @@ function searchWeather(e){
    apiWeatherSearch(searchWord)
 }
 
+function signUpUser(e){
+  e.preventDefault()
+
+  let username= document.getElementById('username').value;
+  let password= document.getElementById('password').value;
+  let conf_password= document.getElementById('conf_password').value;
+
+  if(password===conf_password){
+  let user=[]
+    user.push( {
+      username:username,
+      password:password
+      }
+    )
+
+    localStorage.setItem('users',JSON.stringify(user))
+      alert('Sign Up successful')
+
+      let users= JSON.parse(localStorage.getItem('users'));
+      console.log("users in system",users)
+    //let updatedJSONData = JSON.stringify(user)
+
+  }else{
+    alert('password mismatch')
+  }
+ 
+
+}
   return (
   
   
@@ -228,7 +262,7 @@ function searchWeather(e){
           <a className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sign In <span  className="caret"></span></a>
           <ul  className="dropdown-menu">
             <li><a onClick={showModal}>Sign In</a></li>
-            <li><a >Sign Up</a></li>
+            <li><a onClick={showModal3}>Sign Up</a></li>
             
           </ul>
         </li>
@@ -350,6 +384,43 @@ function searchWeather(e){
                 </tbody>
               </table>
             </Modal>
+
+
+            <Modal
+                title="Sign Up"
+                visible={visible3}
+                onOk={handleOk_Cancel}
+                onCancel={handleOk_Cancel}
+                  footer={[
+              <div></div>
+              ]}
+              >
+              <div className="" style={{overflow: 'hidden'}}>
+              <form onSubmit={signUpUser}>
+                  <div className="col-md-12">
+                    <label>Username</label>
+                      <input type="text" className="form-control" id="username" placeholder="username"/>
+                      
+                    </div>
+
+                    <div className="col-md-12">
+                    <label>Password</label>
+                      <input type="password" className="form-control" id="password" placeholder="Password"/>
+                      
+                    </div>
+
+                    <div className="col-md-12">
+                    <label>Confirm Password</label>
+                      <input type="password" className="form-control" id="conf_password" placeholder="Confirm Password"/>
+                      
+                    </div>
+                    <div className="col-md-12">
+                    <button type="submit" className=" col-md-12btn btn-success">Sign Up</button>
+                    </div>
+              </form>
+              </div>
+
+              </Modal>
       
     </div>
   );
