@@ -59,7 +59,7 @@ function Home() {
         setLocation(`${response.data['location'].name} , ${response.data['location'].country}`);
         setDate(`${response.data['location'].localtime}`)
         setisLoading(false)
-        localStorage.clear('userSearchResults');
+       // localStorage.clear('userSearchResults');
 
 
        
