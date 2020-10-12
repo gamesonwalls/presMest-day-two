@@ -148,8 +148,7 @@ function searchUserResult(){
  
 }
   function apiCountries(){
-     
-   // let that=this;
+    
         axios.get(`https://restcountries.eu/rest/v2/all`)
           .then(function (response) {
               console.log("response countries",response.data)
