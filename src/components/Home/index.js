@@ -32,14 +32,14 @@ function Home() {
   useEffect(() => {
 
    setTimeout(function(){
-      apiWeather('Ghana')
-      apiCountries()
+      apiWeather()
+     // apiCountries()
    },2000)
    
   }, []);
 
   
-  function apiWeather(lat,long){
+  function apiWeather(){
 
     setisLoading(true)
     const apiKey='ec7d0fcad25a0ade0cc1fb7d61dd869b';
@@ -235,10 +235,6 @@ function signUpUser(e){
    
     <nav  className="navbar navbar-default" style={{backgroundColor:'rgba(0, 0, 0, 0.08)',borderColor:'rgba(0, 0, 0, 0.08)'}}>
   <div  className="container-fluid">
-
-
-
-
 
 
 

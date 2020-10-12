@@ -24,12 +24,10 @@ function Login(props) {
                 props.setisLogin(true)
                 props.setuserName(username)
                 //$.noConflict();
-                
                 props.setVisible(false)  
       }else{
         $("#checker").fadeIn(100).delay(3000).fadeOut(2000)
-      }
-       
+      }  
 
   }
 
