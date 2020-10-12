@@ -37,10 +37,17 @@ function Home() {
   }, []);
 
   
-  function apiWeather(queryWord){
+  function apiWeather(lat,long){
 
     setisLoading(true)
     const apiKey='ec7d0fcad25a0ade0cc1fb7d61dd869b';
+
+    navigator.geolocation.getCurrentPosition(position=> {
+
+      let queryWord= `${position['coords'].latitude},${position['coords'].longitude}`;
+      
+    
+   console.log("queryWord",queryWord)
     
     axios.get(`http://api.weatherstack.com/current?access_key=${apiKey}&query=${queryWord}`, {
         
@@ -54,11 +61,17 @@ function Home() {
         setisLoading(false)
         localStorage.clear('userSearchResults');
 
+
+       
         
       })
       .catch(function (error) {
         console.log(error);
       })
+
+      
+    })
+     
   }
 
 
@@ -203,7 +216,7 @@ function searchWeather(e){
         <span  className="icon-bar"></span>
         <span  className="icon-bar"></span>
       </button>
-      <a><img  className="" href="#" src="https://img.pngio.com/weather-targeting-weather-png-350_350.jpg" alt="wea" style={{color:"white",height:90}}/><span style={{fontSize:20}}>SL Weather</span></a>
+      <a><img  className=""  src="https://img.pngio.com/weather-targeting-weather-png-350_350.jpg" alt="wea" style={{color:"white",height:90}}/><span style={{fontSize:20}}>SL Weather</span></a>
     </div>
 
   
@@ -213,10 +226,10 @@ function searchWeather(e){
       <ul  className="nav navbar-nav navbar-right">
         <li><a style={{color:'white'}}>Not Logged in</a></li>
         <li  className="dropdown">
-          <a href="#"  className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sign In <span  className="caret"></span></a>
+          <a className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sign In <span  className="caret"></span></a>
           <ul  className="dropdown-menu">
             <li><a onClick={showModal}>Sign In</a></li>
-            <li><a href="#">Sign Up</a></li>
+            <li><a >Sign Up</a></li>
             
           </ul>
         </li>
@@ -227,10 +240,10 @@ function searchWeather(e){
         <ul  className="nav navbar-nav navbar-right">
             <li><a style={{color:'white'}}>Welcome {userName}</a></li>
             <li  className="dropdown">
-              <a href="#"  className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span  className="caret"></span></a>
+              <a   className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span  className="caret"></span></a>
               <ul  className="dropdown-menu">
                 <li><a onClick={showModal2}>My Search</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a >Logout</a></li>
               
                 
               </ul>
